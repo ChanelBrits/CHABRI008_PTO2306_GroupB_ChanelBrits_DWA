@@ -53,3 +53,28 @@ export const updateShowMoreButton = (page, matches) => {
       <span class="list__remaining"> (${remainingBooks})</span>
   `;
 };
+
+export const getActiveBook = (event) => {
+  const pathArray = Array.from(event.path || event.composedPath());
+  const previewNode = pathArray.find((node) => node?.dataset?.preview);
+
+  return previewNode ? previewNode.dataset.preview : null;
+};
+
+export const findBookById = (bookId) => {
+  return books.find((book) => book.id === bookId);
+};
+
+export const updateBookImage = (imageSrc) => {
+  html.listBlur.src = imageSrc;
+  html.listImage.src = imageSrc;
+};
+
+export const updateBookInfo = ({ title, author, published, description }) => {
+  const publicationYear = new Date(published).getFullYear();
+  const authorName = authors[author];
+
+  html.listTitle.innerText = title;
+  html.listSubtitle.innerText = `${authorName} (${publicationYear})`;
+  html.listDescription.innerText = description;
+};

@@ -2,8 +2,11 @@ import { books, authors, genres, BOOKS_PER_PAGE } from "./data.js";
 import { html, toggleOverlay } from "./helpers.js";
 import {
   loadPreviews,
-  createPreviewHTML,
   updateShowMoreButton,
+  getActiveBook,
+  findBookById,
+  updateBookImage,
+  updateBookInfo,
 } from "./previews.js";
 import { createSelectElement, filterBooks } from "./search.js";
 import { setDefaultTheme, setTheme } from "./settings.js";
@@ -105,36 +108,18 @@ const handleSearchSubmit = (event) => {
 
 html.searchForm.addEventListener("submit", handleSearchSubmit);
 
-document
-  .querySelector("[data-list-items]")
-  .addEventListener("click", (event) => {
-    const pathArray = Array.from(event.path || event.composedPath());
-    let active = null;
+const handlePreviewClick = (event) => {
+  const bookId = getActiveBook(event);
 
-    for (const node of pathArray) {
-      if (active) break;
+  if (bookId) {
+    const activeBook = findBookById(bookId);
 
-      if (node?.dataset?.preview) {
-        let result = null;
-
-        for (const singleBook of books) {
-          if (result) break;
-          if (singleBook.id === node?.dataset?.preview) result = singleBook;
-        }
-
-        active = result;
-      }
+    if (activeBook) {
+      toggleOverlay(html.listActive, true);
+      updateBookImage(activeBook.image);
+      updateBookInfo(activeBook);
     }
+  }
+};
 
-    if (active) {
-      document.querySelector("[data-list-active]").open = true;
-      document.querySelector("[data-list-blur]").src = active.image;
-      document.querySelector("[data-list-image]").src = active.image;
-      document.querySelector("[data-list-title]").innerText = active.title;
-      document.querySelector("[data-list-subtitle]").innerText = `${
-        authors[active.author]
-      } (${new Date(active.published).getFullYear()})`;
-      document.querySelector("[data-list-description]").innerText =
-        active.description;
-    }
-  });
+html.listItems.addEventListener("click", handlePreviewClick);
