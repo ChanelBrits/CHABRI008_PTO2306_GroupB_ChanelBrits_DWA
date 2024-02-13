@@ -18,3 +18,29 @@ export const createSelectElement = (data, defaultValue, defaultText) => {
 
   return selectFragment;
 };
+
+const filterByGenre = (book, genreFilter) => {
+  return genreFilter === "any" || book.genres.includes(genreFilter);
+};
+
+const filterByAuthor = (book, authorFilter) => {
+  return authorFilter === "any" || book.author === authorFilter;
+};
+
+const filterByTitle = (book, titleFilter) => {
+  return (
+    titleFilter.trim() === "" ||
+    book.title.toLowerCase().includes(titleFilter.toLowerCase())
+  );
+};
+
+export const filterBooks = (books, filters) => {
+  const { genre, author, title } = filters;
+  return books.filter((book) => {
+    const genreMatch = filterByGenre(book, genre);
+    const authorMatch = filterByAuthor(book, author);
+    const titleMatch = filterByTitle(book, title);
+
+    return genreMatch && titleMatch && authorMatch;
+  });
+};
