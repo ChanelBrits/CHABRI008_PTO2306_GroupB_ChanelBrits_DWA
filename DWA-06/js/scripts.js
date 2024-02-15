@@ -56,30 +56,6 @@ const handleSettingsCancel = (event) => {
   toggleOverlay(html.themeOverlay, false);
 };
 
-const handleSearchButton = () => {
-  toggleOverlay(html.searchOverlay, true);
-  html.searchTitle.focus();
-};
-
-const handleSearchCancel = (event) => {
-  event.preventDefault();
-
-  toggleOverlay(html.searchOverlay, false);
-};
-
-html.listButton.addEventListener("click", handleShowMoreBtn);
-
-html.themeForm.addEventListener("submit", handleSettingsSave);
-html.themeCancel.addEventListener("click", handleSettingsCancel);
-html.themeButton.addEventListener("click", handleSettingsButton);
-
-html.searchButton.addEventListener("click", handleSearchButton);
-html.searchCancel.addEventListener("click", handleSearchCancel);
-
-document.querySelector("[data-list-close]").addEventListener("click", () => {
-  document.querySelector("[data-list-active]").open = false;
-});
-
 const handleSearchSubmit = (event) => {
   event.preventDefault();
 
@@ -106,7 +82,16 @@ const handleSearchSubmit = (event) => {
   event.target.reset();
 };
 
-html.searchForm.addEventListener("submit", handleSearchSubmit);
+const handleSearchButton = () => {
+  toggleOverlay(html.searchOverlay, true);
+  html.searchTitle.focus();
+};
+
+const handleSearchCancel = (event) => {
+  event.preventDefault();
+
+  toggleOverlay(html.searchOverlay, false);
+};
 
 const handlePreviewClick = (event) => {
   const bookId = getActiveBook(event);
@@ -122,4 +107,18 @@ const handlePreviewClick = (event) => {
   }
 };
 
+const handlePreviewClose = () => {
+  toggleOverlay(html.listActive, false);
+};
+
+html.listButton.addEventListener("click", handleShowMoreBtn);
+html.listActive.addEventListener("click", handlePreviewClose);
 html.listItems.addEventListener("click", handlePreviewClick);
+
+html.themeForm.addEventListener("submit", handleSettingsSave);
+html.themeCancel.addEventListener("click", handleSettingsCancel);
+html.themeButton.addEventListener("click", handleSettingsButton);
+
+html.searchButton.addEventListener("click", handleSearchButton);
+html.searchCancel.addEventListener("click", handleSearchCancel);
+html.searchForm.addEventListener("submit", handleSearchSubmit);
