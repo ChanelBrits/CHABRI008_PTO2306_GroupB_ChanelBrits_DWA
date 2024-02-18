@@ -1,14 +1,6 @@
 // @ts-check
 
 /**
- * @typedef {object} BookPreview - An object representing a book to be shown to a user
- * @prop {string} author - The author ID that corresponds to the authors object
- * @prop {string} id - The unique book ID
- * @prop {string} image - The URL of the associated book cover
- * @prop {string} title - The title of the book
- */
-
-/**
  * @typedef {Object} Book - An object containing all the data of a book
  * @prop {string} id - The unique book ID
  * @prop {string[]} genres - The genre ID that corresponds to the genres object
@@ -21,7 +13,6 @@
  * @prop {string} author - The author ID that corresponds to the authors object
  */
 
-export const BookPreview = {};
 export const Book = {};
 
 /**
@@ -40,6 +31,10 @@ const getValidatedElement = (selector) => {
   return element;
 };
 
+/**
+ * An object containing all the validated HTML elements used in the application.
+ * The elements are validated using the {@link getValidatedElement} function.
+ */
 export const html = {
   listItems: getValidatedElement("[data-list-items]"),
   listButton: getValidatedElement("[data-list-button]"),
@@ -66,6 +61,12 @@ export const html = {
   themeButton: getValidatedElement("[data-header-settings]"),
 };
 
+/**
+ * A function that toggles the overlay element based on the provided state.
+ * @param {HTMLElement} overlayElement - The overlay element to toggle
+ * @param {boolean} isOpen - The state to set the overlay to
+ */
 export const toggleOverlay = (overlayElement, isOpen) => {
+  // @ts-ignore
   overlayElement.open = isOpen;
 };

@@ -1,11 +1,11 @@
 // @ts-check
 
 import { books, authors, BOOKS_PER_PAGE } from "./data.js";
-import { html, BookPreview, Book } from "./helpers.js";
+import { html, Book } from "./helpers.js";
 
 /**
  * Creates a button element for the book preview and sets up the inner HTML
- * @param {BookPreview} book - The book data to be used to create the preview
+ * @param {Pick<Book, 'author' | 'id' | 'image' | 'title'>} book - The book data to be used to create the preview
  * @returns {HTMLElement} - A button element that represents a book preview
  */
 export const createPreviewElement = ({ author, id, image, title }) => {
