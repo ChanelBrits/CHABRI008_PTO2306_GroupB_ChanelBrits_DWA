@@ -1,4 +1,6 @@
 // @ts-check
 
-import { state } from "./state.js";
-console.log("It works");
+import { state, Task } from "./modules/state.js";
+import { addTaskToHtml } from "./modules/tasks.js";
+
+addTaskToHtml("task");
