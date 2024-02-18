@@ -12,7 +12,6 @@
  * @prop {string} published - The date the book was published
  * @prop {string} author - The author ID that corresponds to the authors object
  */
-
 export const Book = {};
 
 /**

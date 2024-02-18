@@ -65,7 +65,7 @@ const handleSearchSubmit = (event) => {
 
   let result = [];
   result.push(...filterBooks(books, filters));
-  console.log(result);
+  console.log(typeof result);
 
   page = 1;
   matches = result;
