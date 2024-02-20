@@ -5,7 +5,8 @@ import { html, Book } from "./helpers.js";
 
 /**
  * Creates a button element for the book preview and sets up the inner HTML
- * @param {Pick<Book, 'author' | 'id' | 'image' | 'title'>} book - The book data to be used to create the preview
+ * @param {Pick<Book, 'author' | 'id' | 'image' | 'title'>} book - The book data
+ * used to create the preview
  * @returns {HTMLElement} - A button element that represents a book preview
  */
 export const createPreviewElement = ({ author, id, image, title }) => {
@@ -47,8 +48,8 @@ export const createPreviewHTML = (books) => {
 };
 
 /**
- * A function that creates a preview of each book using
- * {@link createPreviewHTML} and then appends the previews to the list items
+ * Appends preview elements created from the provided books to the list items in
+ * the HTML using the {@link createPreviewHTML} function
  * @param {Book[]} books - The books to be used to create the previews
  */
 export const loadPreviews = (books) => {
@@ -57,32 +58,23 @@ export const loadPreviews = (books) => {
 };
 
 /**
- * Calculates the number of books to display
- * @param {number} page - The current page number for displaying books
- * @param {object} matches - The books that match the search criteria
- * @param {number} BOOKS_PER_PAGE - How many books to display per page
- * @returns {number} - The number of books remaining to display
+ * Calculates the number of remaining books to display.
+ * @param {number} totalBooks - The total number of books.
+ * @param {number} displayedBooks - The number of books currently displayed.
+ * @returns {number} - The number of remaining books.
  */
-const calculateRemainingBooks = (page, matches, BOOKS_PER_PAGE) => {
-  const startIndexOfBooks = page * BOOKS_PER_PAGE;
-  const remainingBooks = matches.length - startIndexOfBooks;
-
-  return remainingBooks > 0 ? remainingBooks : 0;
+export const calculateRemainingBooks = (totalBooks, displayedBooks) => {
+  return Math.max(totalBooks - displayedBooks, 0);
 };
 
 /**
- * A function that updates the show more button in the html to display the
- * number of remaining books using the {@link calculateRemainingBooks} function
- * @param {number} page - The current page number for displaying books
- * @param {object} matches - The books that match the search criteria
+ * Updates the "Show more" button text to display the number of remaining books.
+ * @param {number} remainingBooks - The number of remaining books.
  */
-export const updateShowMoreButton = (page, matches) => {
-  const remainingBooks = calculateRemainingBooks(page, matches, BOOKS_PER_PAGE);
-
-  html.listButton.innerHTML = `
-      <span>Show more</span>
-      <span class="list__remaining"> (${remainingBooks})</span>
-  `;
+export const updateShowMoreButton = (remainingBooks) => {
+  const buttonText =
+    remainingBooks > 0 ? `Show more (${remainingBooks})` : "No more books";
+  html.listButton.innerHTML = buttonText;
 };
 
 /**

@@ -3,7 +3,7 @@
 import { Book } from "./helpers.js";
 
 /**
- * A function that creates an option element based on the provided value and
+ * Creates an option element based on the provided value and
  * text.
  * @param {string} value
  * @param {string} text
@@ -25,7 +25,7 @@ const createOption = (value, text) => {
  * @param {object} data - The data to be used to create the select element
  * @param {string} defaultValue - The default value for the select element
  * @param {string} defaultText - The default text for the select element
- * @returns
+ * @returns {DocumentFragment} - A fragment containing the select element
  */
 export const createSelectElement = (data, defaultValue, defaultText) => {
   const selectFragment = document.createDocumentFragment();
@@ -73,6 +73,7 @@ const filterByTitle = (book, titleFilter) => {
 /**
  * @param {Book[]} books - The books to be filtered
  * @param {object} filters - The filters to be used to filter the books
+ * @returns {Book[]} - The books that match the provided filters
  */
 export const filterBooks = (books, filters) => {
   const { genre, author, title } = filters;

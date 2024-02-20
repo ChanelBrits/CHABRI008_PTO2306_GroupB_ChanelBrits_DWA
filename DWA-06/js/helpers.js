@@ -1,6 +1,7 @@
 // @ts-check
 
 /**
+ * Represents the structure of a book object.
  * @typedef {Object} Book - An object containing all the data of a book
  * @prop {string} id - The unique book ID
  * @prop {string[]} genres - The genre ID that corresponds to the genres object
@@ -15,7 +16,7 @@
 export const Book = {};
 
 /**
- * Helper function to find and validate an HTML element.
+ * Retrieves and validates an HTML element based on the provided selector.
  * @param {string} selector - The element selector for the element.
  * @returns {HTMLElement} - The validated HTML element.
  * @throws {Error} - If the element is not found or not an HTML element.
@@ -32,7 +33,7 @@ const getValidatedElement = (selector) => {
 
 /**
  * An object containing all the validated HTML elements used in the application.
- * The elements are validated using the {@link getValidatedElement} function.
+ * Each element is obtained using the {@link getValidatedElement} function.
  */
 export const html = {
   listItems: getValidatedElement("[data-list-items]"),
@@ -61,9 +62,10 @@ export const html = {
 };
 
 /**
- * A function that toggles the overlay element based on the provided state.
+ * Toggles the visibility of an overlay element based on the provided state.
  * @param {HTMLElement} overlayElement - The overlay element to toggle
- * @param {boolean} isOpen - The state to set the overlay to
+ * @param {boolean} isOpen - A boolean indicating whether the overlay should be
+ * open or closed.
  */
 export const toggleOverlay = (overlayElement, isOpen) => {
   // @ts-ignore
