@@ -4,17 +4,21 @@ import { books, authors, BOOKS_PER_PAGE } from "./data.js";
 import { html, Book } from "./helpers.js";
 
 /**
- * Creates a button element for the book preview and sets up the inner HTML
- * @param {Pick<Book, 'author' | 'id' | 'image' | 'title'>} book - The book data
- * used to create the preview
- * @returns {HTMLElement} - A button element that represents a book preview
+ * Factory function for managing book previews.
+ * @returns {Object} - Object containing methods for creating and loading book previews.
  */
-export const createPreviewElement = ({ author, id, image, title }) => {
-  const previewElement = document.createElement("button");
-  previewElement.classList.add("preview");
-  previewElement.setAttribute("data-preview", id);
+export function createPreview() {
+  /**
+   * Creates a preview element for a book.
+   * @param {Book} book - An object of book data used to create the preview.
+   * @returns {HTMLElement} - A button element representing a book preview.
+   */
+  function createPreviewElement({ author, id, image, title }) {
+    const previewElement = document.createElement("button");
+    previewElement.classList.add("preview");
+    previewElement.setAttribute("data-preview", id);
 
-  previewElement.innerHTML = `
+    previewElement.innerHTML = `
       <img
           class="preview__image"
           src="${image}"
@@ -26,36 +30,94 @@ export const createPreviewElement = ({ author, id, image, title }) => {
       </div>
     `;
 
-  return previewElement;
-};
-
-/**
- * A function that iterates through the selected books and creates a preview
- * element for each one using the {@link createPreviewElement} function
- * @param {Book[]} books - The books to be used to create the previews
- * @returns {DocumentFragment} - fragment containing the preview elements
- */
-export const createPreviewHTML = (books) => {
-  const previewFragment = document.createDocumentFragment();
-  const extractedBooks = books.slice(0, BOOKS_PER_PAGE);
-
-  for (const book of extractedBooks) {
-    const previewElement = createPreviewElement(book);
-    previewFragment.appendChild(previewElement);
+    return previewElement;
   }
 
-  return previewFragment;
-};
+  /**
+   * Creates HTML containing preview elements for multiple books.
+   * @param {Object[]} books - An array of book objects.
+   * @returns {DocumentFragment} - A document fragment containing preview elements.
+   */
+  function createPreviewHtml(books) {
+    const previewFragment = document.createDocumentFragment();
 
-/**
- * Appends preview elements created from the provided books to the list items in
- * the HTML using the {@link createPreviewHTML} function
- * @param {Book[]} books - The books to be used to create the previews
- */
-export const loadPreviews = (books) => {
-  const previewFragment = createPreviewHTML(books);
-  html.listItems.appendChild(previewFragment);
-};
+    books.slice(0, BOOKS_PER_PAGE).forEach((book) => {
+      const previewElement = createPreviewElement(book);
+      previewFragment.appendChild(previewElement);
+    });
+
+    return previewFragment;
+  }
+
+  /**
+   * Loads preview elements into the DOM.
+   * @param {Object[]} books - An array of book objects.
+   */
+  function loadPreviews(books) {
+    const previewFragment = createPreviewHtml(books);
+    html.listItems.appendChild(previewFragment);
+  }
+
+  return {
+    createPreviewElement,
+    createPreviewHtml,
+    loadPreviews,
+  };
+}
+
+// /**
+//  * Creates a button element for the book preview and sets up the inner HTML
+//  * @param {Pick<Book, 'author' | 'id' | 'image' | 'title'>} book - The book data
+//  * used to create the preview
+//  * @returns {HTMLElement} - A button element that represents a book preview
+//  */
+// export const createPreviewElement = ({ author, id, image, title }) => {
+//   const previewElement = document.createElement("button");
+//   previewElement.classList.add("preview");
+//   previewElement.setAttribute("data-preview", id);
+
+//   previewElement.innerHTML = `
+//       <img
+//           class="preview__image"
+//           src="${image}"
+//       />
+
+//       <div class="preview__info">
+//           <h3 class="preview__title">${title}</h3>
+//           <div class="preview__author">${authors[author]}</div>
+//       </div>
+//     `;
+
+//   return previewElement;
+// };
+
+// /**
+//  * A function that iterates through the selected books and creates a preview
+//  * element for each one using the {@link createPreviewElement} function
+//  * @param {Book[]} books - The books to be used to create the previews
+//  * @returns {DocumentFragment} - fragment containing the preview elements
+//  */
+// export const createPreviewHTML = (books) => {
+//   const previewFragment = document.createDocumentFragment();
+//   const extractedBooks = books.slice(0, BOOKS_PER_PAGE);
+
+//   for (const book of extractedBooks) {
+//     const previewElement = createPreviewElement(book);
+//     previewFragment.appendChild(previewElement);
+//   }
+
+//   return previewFragment;
+// };
+
+// /**
+//  * Appends preview elements created from the provided books to the list items in
+//  * the HTML using the {@link createPreviewHTML} function
+//  * @param {Book[]} books - The books to be used to create the previews
+//  */
+// export const loadPreviews = (books) => {
+//   const previewFragment = createPreviewHTML(books);
+//   html.listItems.appendChild(previewFragment);
+// };
 
 /**
  * Calculates the number of remaining books to display.

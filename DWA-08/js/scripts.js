@@ -1,7 +1,7 @@
 import { books, authors, genres, BOOKS_PER_PAGE } from "./data.js";
 import { html, toggleOverlay } from "./helpers.js";
 import {
-  loadPreviews,
+  createPreview,
   calculateRemainingBooks,
   updateShowMoreButton,
   getActiveBook,
@@ -11,6 +11,8 @@ import {
 } from "./previews.js";
 import { createSelectElement, filterBooks } from "./search.js";
 import { setDefaultTheme, setTheme } from "./settings.js";
+
+const { loadPreviews } = createPreview();
 
 let page = 1;
 let matches = books;
