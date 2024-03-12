@@ -21,11 +21,35 @@ export const Book = {};
  * @returns {HTMLElement} - The validated HTML element.
  * @throws {Error} - If the element is not found or not an HTML element.
  */
-const getValidatedElement = (selector) => {
+export const getValidatedElement = (selector) => {
   const element = document.querySelector(selector);
 
   if (!element || !(element instanceof HTMLElement)) {
     throw new Error(`Invalid HTML element: ${element}`);
+  }
+
+  return element;
+};
+
+/**
+ *
+ * @param {object} props
+ * @param {string} props.dataAttr
+ * @param {string} props.value
+ * @param {HTMLElement | ShadowRoot} props.target
+ * @returns {HTMLElement}
+ */
+export const getHtml = (props) => {
+  const { dataAttr, value, target } = props;
+
+  const selector = value ? `[${dataAttr}="${value}"]` : `[${dataAttr}]`;
+
+  const scope = target || document;
+  const element = scope.querySelector(selector);
+  const isHtmlElement = element instanceof HTMLElement;
+
+  if (!isHtmlElement) {
+    throw new Error(`"${selector}" not found`);
   }
 
   return element;

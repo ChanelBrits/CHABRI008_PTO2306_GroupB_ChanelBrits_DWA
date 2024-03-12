@@ -32,6 +32,31 @@ const getValidatedElement = (selector) => {
 };
 
 /**
+  @param {object} props
+ * @param {string} props.dataAttr
+ * @param {string} [props.value]
+ * @param {HTMLElement | ShadowRoot} [props.target]
+ * @returns {HTMLElement}
+ */
+export const getHtml = (props) => {
+  const { dataAttr, value = "", target } = props;
+
+  const selector = value
+    ? `[data-${dataAttr}="${value}"]`
+    : `[data-${dataAttr}]`;
+
+  const scope = target || document;
+  const element = scope.querySelector(selector);
+  const isHtmlElement = element instanceof HTMLElement;
+
+  if (!isHtmlElement) {
+    throw new Error(`${selector} attribute not found in HTML`);
+  }
+
+  return element;
+};
+
+/**
  * An object containing all the validated HTML elements used in the application.
  * Each element is obtained using the {@link getValidatedElement} function.
  */

@@ -1,5 +1,5 @@
-import { books, authors, genres, BOOKS_PER_PAGE } from "./data.js";
-import { html, toggleOverlay } from "./helpers.js";
+import { books, authors, genres, BOOKS_PER_PAGE } from "./modules/data.js";
+import { html, toggleOverlay } from "./modules/helpers.js";
 import {
   createPreview,
   calculateRemainingBooks,
@@ -8,9 +8,9 @@ import {
   findBookById,
   updateBookImage,
   updateBookInfo,
-} from "./previews.js";
-import { createSelectElement, filterBooks } from "./search.js";
-import { setDefaultTheme, setTheme } from "./settings.js";
+} from "./modules/previews.js";
+import { createSelectElement, filterBooks } from "./modules/search.js";
+import { setDefaultTheme, setTheme } from "./modules/settings.js";
 
 const { loadPreviews } = createPreview();
 
