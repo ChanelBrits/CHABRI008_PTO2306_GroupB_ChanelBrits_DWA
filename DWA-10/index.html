@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Tally App</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.14.0/cdn/themes/light.css"
+    />
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.14.0/cdn/shoelace-autoloader.js"
+    ></script>
+    <script src="./scripts.js" defer></script>
+    <script src="./modules/add.js" defer></script>
+    <script src="./modules/subtract.js" defer></script>
+  </head>
+  <body>
+    <style>
+      .button::part(base) {
+        height: 10rem;
+        background: none;
+        color: var(--color-white);
+        padding: 3rem;
+        font-size: 3rem;
+      }
+
+      .input {
+        background-color: var(--color-dark-grey);
+        width: 80%;
+        padding: 2rem;
+        margin: 2rem;
+        border-radius: 10px;
+      }
+
+      .format-number-overview {
+        text-align: center;
+        position: relative;
+        bottom: 1.5rem;
+        left: 1rem;
+      }
+
+      .closeBtn::part(base) {
+        position: absolute;
+        left: 82%;
+        bottom: 65%;
+      }
+
+      .menuBtn {
+        position: absolute;
+        right: 6%;
+        bottom: 65%;
+      }
+
+      .menu {
+        position: absolute;
+        right: 7%;
+        bottom: 40%;
+      }
+    </style>
+
+    <header class="header">
+      <h1 class="header__title">Tally Count</h1>
+    </header>
+
+    <div data-increment style="display: none" class="input">
+      <sl-icon-button
+        name="x"
+        label="Close"
+        class="closeBtn"
+        style="font-size: 2rem"
+        data-close
+      ></sl-icon-button>
+      <div class="format-number-overview">
+        <br /><br />
+        <sl-input
+          type="number"
+          value="1"
+          label="Increment by"
+          style="max-width: 30rem"
+          class="formInput"
+          data-input
+        ></sl-input>
+      </div>
+    </div>
+
+    <main class="counter">
+      <sl-icon-button
+        name="three-dots-vertical"
+        label="Menu"
+        style="font-size: 2rem"
+        class="menuBtn"
+        data-menuBtn
+      ></sl-icon-button>
+
+      <input class="counter__value" data-total readonly value="0" />
+      <div class="counter__actions">
+        <sl-button class="button" data-subtract style="width: 50%">-</sl-button>
+
+        <sl-button class="button" data-add style="width: 50%">+</sl-button>
+      </div>
+
+      <div data-menu style="display: none">
+        <sl-menu style="max-width: 200px" class="menu">
+          <sl-menu-item value="reset" data-reset>Reset Counter</sl-menu-item>
+
+          <sl-menu-item value="increment" data-increment
+            >Increment By</sl-menu-item
+          >
+          <sl-menu-item value="redo">Set Counter To</sl-menu-item>
+          <sl-menu-item value="cut">Add/Subtract From Total</sl-menu-item>
+        </sl-menu>
+      </div>
+      <dialog class="overlay" data-overlay style="display: none">
+        <h2 class="overlay_title">Increment Counter By</h2>
+        <form>
+          <input
+            type="number"
+            id="input"
+            name="input"
+            class="overlay_input"
+            data-input
+          />
+        </form>
+      </dialog>
+    </main>
+    <footer class="footer">
+      Inspired by
+      <a class="footer__link" href="https://tallycount.app">Tally Count</a>
+    </footer>
+  </body>
+</html>
